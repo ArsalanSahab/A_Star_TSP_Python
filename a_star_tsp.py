@@ -87,23 +87,23 @@ class Graph:
 
 
 
-def astar_search(graph, heuristics, start, end):
+def a_star_search(graph, heuristics, start, end):
     
-    # Create lists for open nodes and closed nodes
+   
     not_expanded = [] # Not Expanded
     expanded = [] # expanded
 
-    # Create a start node and an goal node
+   
     start_node = Node(start, None)
     goal_node = Node(end, None)
 
-    # Add the start node
+    # Add the start node to not_expanded list
     not_expanded.append(start_node)
     
-    # Loop until the open list is empty
+    # Loop until all nodes in not_expanded are expanded
     while len(not_expanded) > 0:
 
-        # Sort the open list to get the node with the lowest cost first
+        # Sort List get lowest cost first
         not_expanded.sort()
 
         # Get the node with the lowest cost
@@ -125,16 +125,15 @@ def astar_search(graph, heuristics, start, end):
 
             path.append(start_node.name + ': ' + str(start_node.dist_to_start_node))
 
-            # Return reversed path
+            
             return path[::-1]
 
         # Get neighbours
         neighbors = graph.get(current_node.name)
 
-        # Loop neighbors
+        # Loop over neighbours
         for key, value in neighbors.items():
 
-            # Create a neighbor node
             neighbor = Node(key, current_node)
 
             # Check if the neighbor is in the expanded list
@@ -148,17 +147,17 @@ def astar_search(graph, heuristics, start, end):
 
             neighbor.total_dist = neighbor.dist_to_start_node + neighbor.dist_to_goal_node
 
-            # Check if neighbor is in open list and if it has a lower f value
+           
             for node in not_expanded:
 
                 if (neighbor == node and neighbor.total_dist > node.total_dist):
 
                     continue
 
-            # Everything is green, add neighbor to open list
+          
             not_expanded.append(neighbor)
 
-    # Return None, no path is found
+    
     return None
 
 
@@ -168,10 +167,11 @@ def astar_search(graph, heuristics, start, end):
 
 def main():
 
-    # Create a graph
+    # Create graph instance
     graph = Graph()
 
-    # Create graph add_connectionions (Actual distance)
+    # add edges/connections between nodes/cities
+
     graph.add_connection('Frankfurt', 'Wurzburg', 111)
     graph.add_connection('Frankfurt', 'Mannheim', 85)
     graph.add_connection('Wurzburg', 'Nurnberg', 104)
@@ -200,7 +200,8 @@ def main():
 
 
 
-    # Create heuristics (straight-line distance, air-travel distance)
+    # Create a dictionary for heuristics : dict{'city_name' : 'distance_to_goal}
+
     heuristics = {}
     heuristics['Basel'] = 204
     heuristics['Bern'] = 247
@@ -219,10 +220,11 @@ def main():
     heuristics['Zurich'] = 157
     heuristics['Ulm'] = 0
 
-    # Run the search algorithm
-    path = astar_search(graph, heuristics, 'Frankfurt', 'Ulm')
+    
+    path = a_star_search(graph, heuristics, 'Frankfurt', 'Ulm')
     print(path)
     print()
 
-# Tell python to run main method
-if __name__ == "__main__": main()
+
+if __name__ == "__main__": 
+    main()
