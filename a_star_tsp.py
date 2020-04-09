@@ -116,14 +116,20 @@ def a_star_search(graph, heuristics, start, end):
         if current_node == goal_node:
 
             path = []
+            total_cost = 0
 
             while current_node != start_node:
 
-                path.append(current_node.name + ': ' + str(current_node.dist_to_start_node))
+                
+                path.append("city_"+current_node.name + ': ' + str(current_node.dist_to_start_node))
+
+                total_cost += current_node.dist_to_start_node
 
                 current_node = current_node.parent
 
-            path.append(start_node.name + ': ' + str(start_node.dist_to_start_node))
+            path.append("city_"+start_node.name + ': ' + str(start_node.dist_to_start_node))
+
+        
 
             
             return path[::-1]
@@ -172,56 +178,46 @@ def main():
 
     # add edges/connections between nodes/cities
 
-    graph.add_connection('Frankfurt', 'Wurzburg', 111)
-    graph.add_connection('Frankfurt', 'Mannheim', 85)
-    graph.add_connection('Wurzburg', 'Nurnberg', 104)
-    graph.add_connection('Wurzburg', 'Stuttgart', 140)
-    graph.add_connection('Wurzburg', 'Ulm', 183)
-    graph.add_connection('Mannheim', 'Nurnberg', 230)
-    graph.add_connection('Mannheim', 'Karlsruhe', 67)
-    graph.add_connection('Karlsruhe', 'Basel', 191)
-    graph.add_connection('Karlsruhe', 'Stuttgart', 64)
-    graph.add_connection('Nurnberg', 'Ulm', 171)
-    graph.add_connection('Nurnberg', 'Munchen', 170)
-    graph.add_connection('Nurnberg', 'Passau', 220)
-    graph.add_connection('Stuttgart', 'Ulm', 107)
-    graph.add_connection('Basel', 'Bern', 91)
-    graph.add_connection('Basel', 'Zurich', 85)
-    graph.add_connection('Bern', 'Zurich', 120)
-    graph.add_connection('Zurich', 'Memmingen', 184)
-    graph.add_connection('Memmingen', 'Ulm', 55)
-    graph.add_connection('Memmingen', 'Munchen', 115)
-    graph.add_connection('Munchen', 'Ulm', 123)
-    graph.add_connection('Munchen', 'Passau', 189)
-    graph.add_connection('Munchen', 'Rosenheim', 59)
-    graph.add_connection('Rosenheim', 'Salzburg', 81)
-    graph.add_connection('Passau', 'Linz', 102)
-    graph.add_connection('Salzburg', 'Linz', 126)
+    graph.add_connection('0', '1', 4)
+    graph.add_connection('0', '7', 8)
+    graph.add_connection('1', '2', 8)
+    graph.add_connection('1', '7', 11)
+    graph.add_connection('2', '3', 7)
+    graph.add_connection('2', '8', 2)
+    graph.add_connection('2', '5', 4)
+    graph.add_connection('3', '4', 9)
+    graph.add_connection('3', '5', 14)
+    graph.add_connection('4', '5', 10)
+    graph.add_connection('5', '6', 2)
+    graph.add_connection('6', '7', 1)
+    graph.add_connection('6', '8', 6)
+    graph.add_connection('7', '8', 7)
+
+
+    print("Displaying All Nodes")
+    print(graph.display_all_nodes())
+  
+
 
 
 
     # Create a dictionary for heuristics : dict{'city_name' : 'distance_to_goal}
 
     heuristics = {}
-    heuristics['Basel'] = 204
-    heuristics['Bern'] = 247
-    heuristics['Frankfurt'] = 215
-    heuristics['Karlsruhe'] = 137
-    heuristics['Linz'] = 318
-    heuristics['Mannheim'] = 164
-    heuristics['Munchen'] = 120
-    heuristics['Memmingen'] = 47
-    heuristics['Nurnberg'] = 132
-    heuristics['Passau'] = 257
-    heuristics['Rosenheim'] = 168
-    heuristics['Stuttgart'] = 75
-    heuristics['Salzburg'] = 236
-    heuristics['Wurzburg'] = 153
-    heuristics['Zurich'] = 157
-    heuristics['Ulm'] = 0
+    heuristics['0'] = 12
+    heuristics['1'] = 8
+    heuristics['2'] = 1
+    heuristics['3'] = 5
+    heuristics['4'] = 13
+    heuristics['5'] = 5
+    heuristics['6'] = 5
+    heuristics['7'] = 3
+    heuristics['8'] = 0
+  
 
     
-    path = a_star_search(graph, heuristics, 'Frankfurt', 'Ulm')
+    path = a_star_search(graph, heuristics, '0', '8')
+    print("Displaying Shortest Path")
     print(path)
     print()
 
