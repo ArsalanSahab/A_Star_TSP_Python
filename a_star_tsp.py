@@ -89,6 +89,7 @@ class Graph:
 
 def a_star_search(graph, heuristics, start, end):
     
+###########################  Shortest Path Algorithm ################################
    
     not_expanded = [] # Not Expanded
     expanded = [] # expanded
@@ -103,7 +104,7 @@ def a_star_search(graph, heuristics, start, end):
     # Loop until all nodes in not_expanded are expanded
     while len(not_expanded) > 0:
 
-        # Sort List get lowest cost first
+        # Sort The List
         not_expanded.sort()
 
         # Get the node with the lowest cost
@@ -112,18 +113,17 @@ def a_star_search(graph, heuristics, start, end):
         # Add the current node to the expanded list
         expanded.append(current_node)
         
-        # Check if we have reached the goal, return the path
+        # Check if we have reached the goal if reached start backtrack , else continue
         if current_node == goal_node:
 
+            # List to Store Shrtest Path
             path = []
-            total_cost = 0
-
+            
+            # Backtrack back to the start node 
             while current_node != start_node:
 
                 
                 path.append("city_"+current_node.name + ': ' + str(current_node.dist_to_start_node))
-
-                total_cost += current_node.dist_to_start_node
 
                 current_node = current_node.parent
 
@@ -133,6 +133,8 @@ def a_star_search(graph, heuristics, start, end):
 
             
             return path[::-1]
+
+
 
         # Get neighbours
         neighbors = graph.get(current_node.name)
@@ -146,6 +148,8 @@ def a_star_search(graph, heuristics, start, end):
             if(neighbor in expanded):
                 continue
 
+############################ A_Star_Search_Algorithm #######################################
+
             # Calculate full path cost
             neighbor.dist_to_start_node = current_node.dist_to_start_node + graph.get(current_node.name, neighbor.name)
 
@@ -153,7 +157,7 @@ def a_star_search(graph, heuristics, start, end):
 
             neighbor.total_dist = neighbor.dist_to_start_node + neighbor.dist_to_goal_node
 
-           
+            # Check if this Node Path's f(x) A* Value is > or not           
             for node in not_expanded:
 
                 if (neighbor == node and neighbor.total_dist > node.total_dist):
