@@ -181,7 +181,7 @@ def main():
     graph = Graph()
 
     # add edges/connections between nodes/cities
-
+          # City A , City B , Distance Between
     graph.add_connection('0', '1', 4)
     graph.add_connection('0', '7', 8)
     graph.add_connection('1', '2', 8)
