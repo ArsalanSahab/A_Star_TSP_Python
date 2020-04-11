@@ -219,8 +219,12 @@ def main():
     heuristics['8'] = 0
   
 
+    print()
+    source_city = str(input("Enter Source City : "))
+    destination_city = str(input("Enter Destination City : "))
+
     
-    path = a_star_search(graph, heuristics, '0', '8')
+    path = a_star_search(graph, heuristics, source_city, destination_city)
     print("Displaying Shortest Path")
     print(path)
     print()
