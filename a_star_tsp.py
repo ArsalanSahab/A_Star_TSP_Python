@@ -46,7 +46,7 @@ class Graph:
 
             for (city_2, dist) in self.input_dict[city_1].items():
 
-                self.input_dict.setdefault(city_2, {})[cit_1] = dist
+                self.input_dict.setdefault(city_2, {})[city_1] = dist
        
 
 
